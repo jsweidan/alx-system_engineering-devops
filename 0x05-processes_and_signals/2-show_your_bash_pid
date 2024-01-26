@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
 # displays lines containing the bash word
 # shellcheck disable=SC2009
-ps
-ls /proc | less
-cat /proc/1/cmdline
+ps aux --forest | grep bash
