@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#script that displays listening ports
+listening_ports=$(netstat -tlnp 2>/dev/null | awk
+while read -r line;
+do
+	pid=$(echo "$line" | awk)
+	program=$(lsof -p "$pid" -c "$pid" -F n | grep -i '^n' | cut -c 2-)
+	port=$(echo "$line" | awk '{split($1, a, ":"); print a[length(a)]}')
+		printf "%-7s | %-16s | %-6s\n" "$pid" "$program" "$port"
+done
