@@ -3,7 +3,18 @@
 
 cp /etc/hosts ~/hosts.new
 
-	sed -i '/127.0.0.2\s\+localhost/s/^/#/' ~/host.new
-	sed -i '/8.8.8.8\s\+facebook.com/s/^/#/' ~/host.new
+if grep -q "127.0.0.2\s\+localhost" /etc/hosts; then
+    echo "localhost is already set to 127.0.0.2"
+else
+    sed -i '/127.0.0.1\s\+localhost/s/^/#/' /etc/hosts
+    echo "127.0.0.2 localhost" >> /etc/hosts
+fi
+
+if grep -q "8.8.8.8\s\+facebook.com" /etc/hosts; then
+    echo "facebook.com is already set to 8.8.8.8"
+else
+    sed -i '/157.240.11.35\s\+facebook.com/s/^/#/' /etc/hosts
+    echo "8.8.8.8 facebook.com" >> /etc/hosts
+fi
 
 cp -f ~/hosts.new /etc/hosts
